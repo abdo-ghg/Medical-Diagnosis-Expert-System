@@ -68,7 +68,7 @@ def _format_followup_block(result: TurnResult):
     guesses = ", ".join(f"{d['disease']} ({pct:.0f}%)" for d, pct in result.results)
     parts = [f"I'm not certain yet. Current top guesses: {guesses}.", ""]
     if result.followups:
-        parts.append("Do you also experience any of these? (you can answer with just yes/no or list the ones you have)")
+        parts.append("Do you also experience any of these? (you can answer with a list of the ones you have)")
         for s in result.followups:
             parts.append(f"- {humanize(s)}")
     else:
