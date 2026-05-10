@@ -16,7 +16,6 @@ def humanize(symptom):
 
 @dataclass
 class TurnResult:
-    """Structured outcome of a single conversation turn."""
     status: str               # "no_symptoms" | "no_match" | "need_followup" | "diagnosed"
     new_symptoms: set[str] = field(default_factory=set)
     all_symptoms: set[str] = field(default_factory=set)
@@ -25,12 +24,6 @@ class TurnResult:
 
 
 class ChatSession:
-    """Stateful conversation handler.
-
-    The session keeps the running transcript (`combined_text`) plus the
-    current cumulative symptom set, and on every `step()` re-runs NLP over
-    the full transcript and the diagnosis engine over the current symptoms.
-    """
 
     def __init__(self, extractor: SymptomExtractor | None = None, max_followup_rounds: int = MAX_FOLLOWUP_ROUNDS):
         self.extractor = extractor or EXTRACTOR
