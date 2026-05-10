@@ -39,8 +39,7 @@ class ChatSession:
     the full transcript and the diagnosis engine over the current symptoms.
     """
 
-    def __init__(self, extractor: SymptomExtractor | None = None,
-                 max_followup_rounds: int = MAX_FOLLOWUP_ROUNDS):
+    def __init__(self, extractor: SymptomExtractor | None = None, max_followup_rounds: int = MAX_FOLLOWUP_ROUNDS):
         self.extractor = extractor or EXTRACTOR
         self.max_followup_rounds = max_followup_rounds
         self.history: list[tuple[str, str]] = []   # [(role, text)] for the report
@@ -77,25 +76,13 @@ class ChatSession:
         results = diagnose(symptoms)
         self.last_results = results
         if not results:
-            return TurnResult(status="no_match", new_symptoms=new_only,
-                              all_symptoms=symptoms)
+            return TurnResult(status="no_match", new_symptoms=new_only, all_symptoms=symptoms)
 
         if is_confident(results) or self.follow_up_rounds >= self.max_followup_rounds:
-            return TurnResult(
-                status="diagnosed",
-                new_symptoms=new_only,
-                all_symptoms=symptoms,
-                results=results,
-            )
+            return TurnResult(status="diagnosed", new_symptoms=new_only, all_symptoms=symptoms, results=results)
 
         self.follow_up_rounds += 1
-        return TurnResult(
-            status="need_followup",
-            new_symptoms=new_only,
-            all_symptoms=symptoms,
-            results=results,
-            followups=followup_symptoms(results, n=5),
-        )
+        return TurnResult(status="need_followup", new_symptoms=new_only, all_symptoms=symptoms, results=results, followups=followup_symptoms(results, n=5))
 
     def record_assistant(self, text):
         """Optional: record the assistant's reply in the transcript history."""
