@@ -88,6 +88,8 @@ class ChatSession:
         """Optional: record the assistant's reply in the transcript history."""
         self.history.append(("assistant", text))
 
+
+
     # ------------------------------------------------------------------
     # Report generation
     # ------------------------------------------------------------------
