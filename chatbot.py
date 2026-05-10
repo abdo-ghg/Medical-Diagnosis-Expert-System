@@ -1,10 +1,3 @@
-"""Conversational backend for the medical diagnosis expert system.
-
-`ChatSession` is the single source of truth for the conversation flow and is
-shared by both the CLI in this file and the Streamlit UI in
-`streamlit_app.py`. Each turn appends to the running transcript so the user
-never has to repeat earlier symptoms.
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -42,27 +35,23 @@ class ChatSession:
     def __init__(self, extractor: SymptomExtractor | None = None, max_followup_rounds: int = MAX_FOLLOWUP_ROUNDS):
         self.extractor = extractor or EXTRACTOR
         self.max_followup_rounds = max_followup_rounds
-        self.history: list[tuple[str, str]] = []   # [(role, text)] for the report
-        self.combined_text: str = ""
-        self.last_symptoms: set[str] = set()
-        self.last_results: list[Any] = []
-        self.follow_up_rounds: int = 0
-
-    # ------------------------------------------------------------------
-    # Lifecycle
-    # ------------------------------------------------------------------
-    def reset(self):
-        self.history.clear()
+        self.history = []   # [(role, text)] for the report
         self.combined_text = ""
         self.last_symptoms = set()
         self.last_results = []
         self.follow_up_rounds = 0
 
     # ------------------------------------------------------------------
-    # Core turn handling
+    # Lifecycle
     # ------------------------------------------------------------------
+    # def reset(self):
+    #     self.history.clear()
+    #     self.combined_text = ""
+    #     self.last_symptoms = set()
+    #     self.last_results = []
+    #     self.follow_up_rounds = 0
+
     def step(self, user_text):
-        """Process one user utterance and return the structured outcome."""
         self.history.append(("user", user_text))
         self.combined_text = f"{self.combined_text} {user_text}".strip()
 
@@ -85,7 +74,6 @@ class ChatSession:
         return TurnResult(status="need_followup", new_symptoms=new_only, all_symptoms=symptoms, results=results, followups=followup_symptoms(results, n=5))
 
     def record_assistant(self, text):
-        """Optional: record the assistant's reply in the transcript history."""
         self.history.append(("assistant", text))
 
 
