@@ -46,6 +46,17 @@ python chatbot.py
 - Open the Streamlit URL shown in the terminal after running the app and interact with the UI.
 - Use the chatbot CLI for quick text-based interactions.
 
+## 📸 Screenshots
+
+### Streamlit Home Page
+![Home Page](photos\Screenshot 2026-05-29 155744.png)
+
+### Chatbot Interface
+![Chatbot](photos/Screenshot 2026-05-29 160054.png)
+
+### Diagnosis Result
+![Diagnosis](photos\Screenshot 2026-05-29 160127.png)
+
 ## Notes
 - If you don't have a `requirements.txt`, consider creating one from your environment:
 
