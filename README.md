@@ -49,13 +49,13 @@ python chatbot.py
 ## 📸 Screenshots
 
 ### Streamlit Home Page
-![Home Page](photos\Screenshot 2026-05-29 155744.png)
+![Home Page](photos/Screenshot 2026-05-29 155744.png)
 
 ### Chatbot Interface
 ![Chatbot](photos/Screenshot 2026-05-29 160054.png)
 
 ### Diagnosis Result
-![Diagnosis](photos\Screenshot 2026-05-29 160127.png)
+![Diagnosis](photos/Screenshot 2026-05-29 160127.png)
 
 ## Notes
 - If you don't have a `requirements.txt`, consider creating one from your environment:
